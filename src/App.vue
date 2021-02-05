@@ -1,18 +1,17 @@
 <template>
   <div id="app">
-    <div>
       <Header/>
       <router-view />
-    </div>
-
   </div>
 </template>
 
 <style scoped>
-  #app {
-    width: 100%;
-    background-color: #42b983;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+#app {
+  font-family: 'Special Elite', monospace;
+}
+
 </style>
 <script>
 import Header from "@/components/Header";

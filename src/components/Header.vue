@@ -1,6 +1,5 @@
 <template>
-  <div id="mainHeader">
-    <header>
+  <div class="mainHeader">
       <div class="logo">
         <img width="100" height="100" src="../assets/ljudio.png">
       </div>
@@ -12,10 +11,8 @@
           <router-link to="/about">About</router-link> |
         </div>
       </div>
-      <Login style="grid-row: 1; grid-column: 4"/>
+      <Login/>
         <h1 class="shake">Ljudio</h1>
-    </header>
-
   </div>
 
 </template>
@@ -28,9 +25,9 @@ name: "Header",
 }
 </script>
 
-<style src="../assets/css/style.css">
+<style scoped>
 
-header{
+.mainHeader {
   color: #000000;
   display: grid;
   gap: 15px;
