@@ -2,7 +2,7 @@
   <div class="home">
 
     <div class="MenuItem shake">
-      <router-link to="/play">Play</router-link>
+      <router-link to="/playlists">Play</router-link>
     </div>
 
     <div class="MenuItem shake">
@@ -10,7 +10,7 @@
     </div>
 
     <div class="MenuItem shake">
-      <router-link to="/create">Create</router-link>
+      <router-link to="/addPlaylist">Create</router-link>
     </div>
 
   </div>
@@ -20,7 +20,7 @@
 
 export default {
   name: "Home"
-};
+}
 </script>
 
 <style>

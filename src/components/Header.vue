@@ -10,6 +10,9 @@
         <div class="shake">
           <router-link to="/about">About</router-link> |
         </div>
+        <div class="shake">
+          <router-link to="/playlists">My Playlists</router-link> |
+        </div>
       </div>
       <Login/>
         <h1 class="shake">Ljudio</h1>

@@ -1,21 +1,57 @@
 <template>
   <div class="login">
-    <label>Username</label>
-    <input type="text" placeholder="Username"> <br>
-    <label>Password</label>
-    <input type="password" placeholder="Password"> <br>
-    <button>Log in</button>
+
+    <form v-if="user.loggedIn" @submit.prevent="submit">
+      <label>Username</label>
+      <input type="text" placeholder="Username" v-model="user.username"> <br>
+      <label>Password</label>
+      <input type="password" placeholder="Password" v-model="user.password"> <br>
+      <button @submit="submit()">Log in</button>
+    </form>
+
+    <router-link v-if="user.loggedIn === false" to="/register">Register></router-link>
+
+    <div v-if="!user.loggedIn">
+      <h3>Hello, {{user.firstName}} {{user.lastName}}!</h3>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-name: "Login"
+name: "Login",
+  data() {
+  return {
+    username: "",
+    password: ""
+  }
+  },
+  computed: {
+  user(){
+    return this.$store.state.user;
+  }
+  },
+  methods: {
+    submit() {
+      this.$store.dispatch('login', {username: this.username, password: this.password});
+    }
+  }
 }
 </script>
 
 <style scoped>
-.login {
+
+a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: magenta;
+}
+
+.login form {
   grid-row: 1;
   grid-column: 4;
   padding: 5%;
@@ -24,12 +60,10 @@ name: "Login"
 
 }
 
-.login>input {
+.login form>input {
   margin: 1% 1% 1% 5%;
   height: 20px;
   font-family: 'Special Elite';
-}
-.login>label {
 }
 
 button {
