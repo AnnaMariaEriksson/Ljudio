@@ -3,9 +3,9 @@ class Playlist {
 
     listOfSongs = [];
 
-    constructor(name, listOfSongs, numberOfSongs) {
+    constructor(name, listOfSongs, numberofsongs) {
         this.name = name;
         this.lisOfSongs = listOfSongs;
-        this.numberOfSongs = numberOfSongs;
+        this.numberofsongs = numberofsongs;
     }
 }

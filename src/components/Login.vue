@@ -12,7 +12,7 @@
     <router-link v-if="user.loggedin" to="/register">Register></router-link>
 
     <div v-if="user.loggedin">
-      <h3>Hello, {{user.firstName}} {{user.lastName}}!</h3>
+      <h3>Hello, {{user.firstname}} {{user.lastname}}!</h3>
     </div>
   </div>
 </template>
@@ -33,7 +33,24 @@ name: "Login",
     },
     set(value) {
       this.$store.commit('setUser', value);
+    },
+    firstname: {
+      get() {
+        return this.$store.state.user.firstname;
+      },
+      set(value) {
+        this.$store.commit("setUserfirstname", value)
+      }
+    },
+    lastname: {
+      get() {
+        return this.$store.state.user.lastname;
+      },
+      set(value) {
+        this.$store.commit("setUserlastname", value)
+      }
     }
+
 
   }
   },

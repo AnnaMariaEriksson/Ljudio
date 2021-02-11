@@ -14,7 +14,7 @@ app.options('*', cors());
 // add body-parser to express
 const bodyParser = require('body-parser')
 // register as middleware
-app.use( bodyParser.json() )
+app.use(bodyParser.json())
 
 app.use(cors());
 
@@ -26,25 +26,27 @@ app.use(cookieParser())
 // add express-session to express
 const session = require('express-session')
 // register as middleware
-app.use( session( {
-    secret: 'keyboard cat boddyfollymeskaweq456',
-    resave: false,
+app.use(session({
+    secret: 'keyboard cat', //boddyfollymeskaweq456 added at the end if needed
+    resave: true,
     saveUninitialized: true,
-    cookie: { secure: false } // ändra till true för secure cookie (felsöka behövs här nu)
-} ) )
+    cookie: {secure: true} // ändra till true för secure cookie (felsöka behövs här nu)
+}))
 
 const mysql = require('mysql');
 const db = mysql.createConnection({
-    host     : 'den1.mysql4.gear.host',
-    user     : 'ljudio1',
-    password : 'Qw4QD52K_r2-',
-    database : 'ljudio1'
+    host: 'den1.mysql4.gear.host',
+    user: 'ljudio1',
+    password: 'Qw4QD52K_r2-',
+    database: 'ljudio1'
 });
 
 // vi gör om mysql-metoderna connect och query till promise-metoder så att vi kan använda async/await för att vänta på databasen
 const util = require('util')
 db.connect = util.promisify(db.connect)
 db.query = util.promisify(db.query)
+
+require('./yt-rest-endpoints.js')(app, db)
 
 // load apis / endpoints
 
@@ -61,14 +63,16 @@ app.get('/api/playlists', async (request, response) => {
 //add new playlist
 app.post('/api/playlists', async (request, response) => {
     // check if user exists before writing
-    if(!request.session.user){
+    if (!request.session.user) {
         response.status(403) // forbidden
-        response.json({error:'not logged in'})
+        response.json({error: 'not logged in'})
         return;
     }
     let result = await db.query("INSERT INTO playlists SET ?", request.body)
     response.json(result)
-} )
+})
+
+//post search
 
 app.get("/api/playlists/:id", async (request, response) => {
     let data = await db.query("SELECT * FROM playlists WHERE id = ?", [request.params.id])
@@ -81,44 +85,50 @@ app.post('/api/login', async (request, response) => {
     let user = await db.query('SELECT * FROM users WHERE username = ?', [request.body.username])
     user = user[0]
 
-    if(user && user.username && await bcrypt.compare(request.body.password, user.password)){
+    if (user && user.username && await bcrypt.compare(request.body.password, user.password)) {
         request.session.user = user
         user.loggedin = true
         response.json({loggedin: true})
-    }else{
+    } else {
         response.status(401) // unauthorized  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-        response.json({message:"no matching user"})
+        response.json({message: "no matching user"})
     }
 })
 
 app.post('/api/users', async (request, response) => {
-    
+
     try {
         let password = await bcrypt.hash(request.body.password, 10);
         let result = await db.query("INSERT INTO users SET ?", {...request.body, password})
         response.json(result)
+    } catch (e) {
+
     }
-    catch (e) {
-        
-    }
-    
+
 });
 
 // authentication: get logged in user
 app.get('/api/login', async (request, response) => {
-    let user
-    if(request.session.user){
-        user = await db.query('SELECT * FROM users WHERE username = ? AND password = ?', [request.session.user.username, request.session.user.password])
-        user = user[0]
+
+    try {
+        let user
+        if (request.session.user) {
+            user = await db.query('SELECT * FROM users WHERE username = ? AND password = ?', [request.session.user.username, request.session.user.password])
+            user = user[0]
+        }
+        if (user && user.username) {
+            user.loggedin = true
+            delete (user.password)
+            response.json(user)
+        } else {
+            response.status(401) // unauthorized  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+            response.json({message: "not logged in"})
+        }
     }
-    if(user && user.username){
-        user.loggedin = true
-        delete(user.password)
-        response.json(user)
-    }else{
-        response.status(401) // unauthorized  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-        response.json({message:"not logged in"})
+    catch (e) {
+        
     }
+
 })
 
 // start the server

@@ -2,9 +2,11 @@
   <div class="search">
     <form>
       <label>Search:</label> <br>
-      <input class="searchinputfield" type="text" placeholder="Search for songs, album, genre or an artist">
-      <button @submit="searchYTVideoTVideo">Submit</button>
+      <input class="searchinputfield" type="text" placeholder="Search for something..." v-model="searchfield">
+      <button @submit="searchYT()">Submit</button>
     </form>
+
+    <div id="yt-player"></div>
 
 <textarea></textarea>
     <!-- insert if statement to only display this list if search is not empty -->
@@ -18,9 +20,26 @@
 <script>
 export default {
 name: "Search",
+  data() {
+    return {
+      searchfield: ""
+    }
+  },
+  computed: {
+    search: {
+      get() {
+        return this.$store.state.search;
+      },
+      set(value) {
+        this.$store.commit("setSearch", value);
+      }
+    }
+},
   methods: {
-  search() {
-    //Do something
+  searchYT() {
+    this.$store.dispatch("getSearchResult", {search: this.searchfield});
+    console.log(this.search);
+    console.log("something happened, finally!");
   }
   }
 }

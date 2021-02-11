@@ -11,17 +11,18 @@ export default new Vuex.Store({
     },
     playlist: {
       name: "",
-      numberOfSongs: 0,
+      numberofsongs: 0,
 
     },
+    search: "",
     songs: [],
     albums: [],
     users: {
       data: []
     },
     user: {
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       username: "",
       password: "",
       loggedin: false
@@ -38,14 +39,20 @@ export default new Vuex.Store({
     addUser(state, userToAdd) {
       state.users.push(userToAdd);
     },
+    setSong(state, value) {
+      state.songs = value;
+    },
+    setSearch(state, value) {
+      state.search = value;
+    },
     setPlaylistsData(state, value) {
       state.playlists.data = value;
     },
     setPlaylistName(state, value) {
       state.playlist.name = value
     },
-    setPlaylistNumberOfSongs(state, value) {
-      state.playlist.numberOfSongs = value
+    setPlaylistnumberofsongs(state, value) {
+      state.playlist.numberofsongs = value
     },
 
     setUser(state, value) {
@@ -54,11 +61,11 @@ export default new Vuex.Store({
     setUsersData(state, value) {
       state.users.data = value;
     },
-    setUserFirstName(state, value){
-      state.user.firstName = value
+    setUserfirstname(state, value){
+      state.user.firstname = value
     },
-    setUserLastName(state, value){
-      state.user.lastName = value
+    setUserlastname(state, value){
+      state.user.lastname = value
     },
     setUserUserName(state, value){
       state.user.username = value
@@ -95,12 +102,21 @@ export default new Vuex.Store({
       
     },
 
-    async searchYTVideo(){
-      let str = document.querySelector('.searchinputfield').value;
-      let response = await fetch('http://localhost:3000/api/yt/search/' + str);
+    async searchYTVideo({dispatch}, search){
+      let response = await fetch('http://localhost:3000/api/yt/search/:searchstring',{
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(search)
+      })
+      await response.json();
+      console.log(search);
+      dispatch('getSearchResult')
+    },
+
+    async getSearchResult({commit}) {
+      let response = await fetch('http://localhost:3000/api/yt/search/:searchstring');
       let data = await response.json();
-      alert(`you've searched for ${str}`)
-      document.querySelector('textarea').value = JSON.stringify(data, undefined, 4)
+      commit("setSearch", data);
     },
 
     async login({dispatch}, credentials){

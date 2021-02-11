@@ -8,9 +8,9 @@
     <label>Password</label>
     <input type="password" v-model="password"> <br>
     <label>First name</label>
-    <input type="text" v-model="firstName"> <br>
+    <input type="text" v-model="firstname"> <br>
     <label>Last name</label>
-    <input type="text" v-model="lastName"> <br>
+    <input type="text" v-model="lastname"> <br>
     <button @submit="addNewUser">Create account</button>
   </form>
 </div>
@@ -23,8 +23,8 @@ export default {
     return {
       username: "",
       password: "",
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       loggedIn: false
     }
   },
@@ -33,8 +33,8 @@ export default {
       let user = {
         username: this.username,
         password: this.password,
-        firstName: this.firstName,
-        lastName: this.lastName,
+        firstname: this.firstname,
+        lastname: this.lastname,
         loggedIn: this.loggedIn
       }
       alert(`Welcome, ${user.username}. Your account has been created.`);

@@ -29,8 +29,15 @@ module.exports = (app, db) => {
 
     // general search (useful for getting a mixed search result with songs, albums, playlists, videos, artists..)
     app.get('/api/yt/search/:searchString', async (req, res) => {
-        let data = await ytmCached(req, res, db, 'search', [req.params.searchString])
-        res.json(data)
+        try {
+            let data = await ytmCached(req, res, db, 'search', [req.params.searchString])
+            res.json(data);
+            console.log(data);
+        }
+        catch (e) {
+            
+        }
+        
     })
 
     // search suggestions (for autocomplete)

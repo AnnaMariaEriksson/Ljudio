@@ -4,7 +4,7 @@
     <h2 v-if="playlists.length > 0">My Playlists</h2>
     <div>
       <ol>
-        <li v-for="(playlist, i) in playlists" v-bind:key="i"> Name of playlist: {{playlist.name}} | Number of songs:  {{playlist.numberOfSongs}}</li>
+        <li v-for="(p, i) in playlists" v-bind:key="i">{{p.name}} | Number of songs:  {{p.numberofsongs}}</li>
       </ol>
     </div>
 
@@ -23,25 +23,6 @@ name: "Playlist",
         this.$store.commit("setPlaylistsData", value);
       }
     },
-    playlist: {
-      name: {
-        get() {
-          return this.$store.state.playlist.name;
-        },
-        set(value) {
-          this.$store.commit("setPlaylistName", value)
-        },
-        numberOfSongs: {
-          get() {
-            return this.$store.state.playlist.numberOfSongs;
-          },
-          set(value) {
-            this.$store.commit("setPlaylistNumberOfSongs", value)
-          }
-        }
-    }
-
-    }
 
   },
   created() {
