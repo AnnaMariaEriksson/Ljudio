@@ -58,6 +58,18 @@ app.get('/api/playlists', async (request, response) => {
     response.json(data);
 })
 
+//add new playlist
+app.post('/api/playlists', async (request, response) => {
+    // check if user exists before writing
+    if(!request.session.user){
+        response.status(403) // forbidden
+        response.json({error:'not logged in'})
+        return;
+    }
+    let result = await db.query("INSERT INTO playlists SET ?", request.body)
+    response.json(result)
+} )
+
 app.get("/api/playlists/:id", async (request, response) => {
     let data = await db.query("SELECT * FROM playlists WHERE id = ?", [request.params.id])
     data = data[0] // single row
