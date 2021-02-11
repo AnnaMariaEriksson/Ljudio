@@ -1,10 +1,20 @@
 <template>
   <div>
-  <!--<h2 v-if="$store.state.playlists.length === 0">No playlists found :(</h2>
-    <h2 v-else-if="$store.state.playlists.length > 0">My Playlists</h2>-->
-    <ol v-if="$store.state.playlists.data.length = 1">
-      <li v-for="(playlist, i) in playlists" v-bind:key="i">Name: {{playlist.name}} | No. of songs: {{playlist.numberOfSongs}}</li>
-    </ol>
+  <h2>No playlists found :(</h2>
+    <h2>My Playlists</h2>
+    <div>
+      <ol>
+        <li v-for="(playlist, i) in playlists" :key="i"> Number of songs:  {{playlist.numberOfSongs}}</li>
+      </ol>
+    </div>
+
+
+    <p>{{playlist.name}}</p>
+    <p>From db: {{playlists[0].name}}</p>
+
+    <button @submit="loadPlaylists()">Get playlists</button>
+
+    <p>Hej svejs</p>
   </div>
 </template>
 
@@ -13,17 +23,27 @@ export default {
 name: "Playlist",
   computed: {
   playlists() {
-    let p = [];
-    for (let playlist of this.$store.state.playlists.data) {
-      if (playlist.id === this.$route.params.id){
-        p.push(playlist);
-      }
+    return this.$store.state.playlists.data;
+  },
+    playlist() {
+    return this.$store.state.playlist;
     }
-    return p;
-  }
+
   },
   created() {
-    this.$store.dispatch('getPlaylists');
+    this.$store
+    .dispatch("getPlaylists")
+    .then(value => {
+      this.value = value
+    })
+    .catch(error => {
+      alert(error);
+    })
+  },
+  methods: {
+  loadPlaylists() {
+    alert("Nått hände i alla fall...");
+  }
   }
 }
 </script>
