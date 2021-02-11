@@ -1,20 +1,13 @@
 <template>
   <div>
-  <h2>No playlists found :(</h2>
-    <h2>My Playlists</h2>
+    <h2 v-if="playlists.length === 0">No playlists found :(</h2>
+    <h2 v-if="playlists.length > 0">My Playlists</h2>
     <div>
       <ol>
-        <li v-for="(playlist, i) in playlists" :key="i"> Number of songs:  {{playlist.numberOfSongs}}</li>
+        <li v-for="(playlist, i) in playlists" v-bind:key="i"> Name of playlist: {{playlist.name}} | Number of songs:  {{playlist.numberOfSongs}}</li>
       </ol>
     </div>
 
-
-    <p>{{playlist.name}}</p>
-    <p>From db: {{playlists[0].name}}</p>
-
-    <button @submit="loadPlaylists()">Get playlists</button>
-
-    <p>Hej svejs</p>
   </div>
 </template>
 
@@ -22,28 +15,37 @@
 export default {
 name: "Playlist",
   computed: {
-  playlists() {
-    return this.$store.state.playlists.data;
-  },
-    playlist() {
-    return this.$store.state.playlist;
+    playlists: {
+      get() {
+        return this.$store.state.playlists.data;
+      },
+      set(value) {
+        this.$store.commit("setPlaylistsData", value);
+      }
+    },
+    playlist: {
+      name: {
+        get() {
+          return this.$store.state.playlist.name;
+        },
+        set(value) {
+          this.$store.commit("setPlaylistName", value)
+        },
+        numberOfSongs: {
+          get() {
+            return this.$store.state.playlist.numberOfSongs;
+          },
+          set(value) {
+            this.$store.commit("setPlaylistNumberOfSongs", value)
+          }
+        }
+    }
+
     }
 
   },
   created() {
-    this.$store
-    .dispatch("getPlaylists")
-    .then(value => {
-      this.value = value
-    })
-    .catch(error => {
-      alert(error);
-    })
-  },
-  methods: {
-  loadPlaylists() {
-    alert("Nått hände i alla fall...");
-  }
+  this.$store.dispatch("getPlaylists");
   }
 }
 </script>

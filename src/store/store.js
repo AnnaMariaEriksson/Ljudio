@@ -40,6 +40,13 @@ export default new Vuex.Store({
     setPlaylistsData(state, value) {
       state.playlists.data = value;
     },
+    setPlaylistName(state, value) {
+      state.playlist.name = value
+    },
+    setPlaylistNumberOfSongs(state, value) {
+      state.playlist.numberOfSongs = value
+    },
+
     setUser(state, value) {
       state.user = value;
     },
@@ -74,6 +81,19 @@ export default new Vuex.Store({
         e.message('Nått gick fel.');
       }
     },
+
+    async addPlaylist({commit}) {
+      try {
+        let response = await fetch('http://localhost:3000/api/playlists/');
+        let result = await response.json();
+        commit('setPlaylistsData', result)
+      }
+      catch (e) {
+        e.message("Nått gick fel igen");
+      }
+      
+    },
+
     async searchYTVideo(){
       let str = document.querySelector('.searchinputfield').value;
       let response = await fetch('http://localhost:3000/api/yt/search/' + str);
