@@ -1,17 +1,17 @@
 <template>
   <div class="login">
 
-    <form v-if="user.loggedIn" @submit.prevent="submit">
+    <form v-if="!user.loggedin" @submit.prevent="submit">
       <label>Username</label>
-      <input type="text" placeholder="Username" v-model="user.username"> <br>
+      <input type="text" placeholder="Username" v-model="username"> <br>
       <label>Password</label>
-      <input type="password" placeholder="Password" v-model="user.password"> <br>
-      <button @submit="submit()">Log in</button>
+      <input type="password" placeholder="Password" v-model="password"> <br>
+      <button @submit="submit">Log in</button>
     </form>
 
-    <router-link v-if="user.loggedIn === false" to="/register">Register></router-link>
+    <router-link v-if="user.loggedin" to="/register">Register></router-link>
 
-    <div v-if="!user.loggedIn">
+    <div v-if="user.loggedin">
       <h3>Hello, {{user.firstName}} {{user.lastName}}!</h3>
     </div>
   </div>
@@ -27,8 +27,14 @@ name: "Login",
   }
   },
   computed: {
-  user(){
-    return this.$store.state.user;
+  user:{
+    get(){
+      return this.$store.state.user;
+    },
+    set(value) {
+      this.$store.commit('setUser', value);
+    }
+
   }
   },
   methods: {
