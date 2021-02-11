@@ -1,16 +1,22 @@
 // server port
 const port = 3000
 
+let cors = require('cors');
+
 const bcrypt = require("bcrypt");
 
 // express server
 const express = require('express')
 const app = express()
 
+app.options('*', cors());
+
 // add body-parser to express
 const bodyParser = require('body-parser')
 // register as middleware
 app.use( bodyParser.json() )
+
+app.use(cors());
 
 // add cookie-parser to express
 const cookieParser = require('cookie-parser')
@@ -47,7 +53,7 @@ app.get('/api/users', async (request, response) => {
     response.json(data);
 })
 
-app.get('api/playlists', async (request, response) => {
+app.get('/api/playlists', async (request, response) => {
     let data = await db.query('SELECT * from playlists');
     response.json(data);
 })
@@ -58,6 +64,7 @@ app.get("/api/playlists/:id", async (request, response) => {
     response.json(data)
 })
 
+//Log in user
 app.post('/api/login', async (request, response) => {
     let user = await db.query('SELECT * FROM users WHERE username = ?', [request.body.username])
     user = user[0]
