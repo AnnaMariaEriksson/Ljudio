@@ -21,7 +21,6 @@ const routes = [
   },
   {
     path: "/playlists",
-    alias: "/api/playlists:id",
     name: "Playlist",
     component: Playlist
   },
@@ -47,10 +46,6 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
-  {
-    path: "api/playlists:id",
-    name: "Playlists"
-  }
 ];
 
 const router = new VueRouter({
