@@ -19,8 +19,8 @@ module.exports = (app, db) => {
 
         if(user && user.username && await bcrypt.compare(request.body.password, user.password)){
             request.session.user = user
-            user.loggedIn = true
-            response.json({loggedIn: true})
+            user.loggedin = true
+            response.json({loggedin: true})
         }else{
             response.status(401) // unauthorized  https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
             response.json({message:"no matching user"})
@@ -35,7 +35,7 @@ module.exports = (app, db) => {
             user = user[0]
         }
         if(user && user.username){
-            user.loggedIn = true
+            user.loggedin = true
             delete(user.password)
             response.json(user)
         }else{
@@ -47,7 +47,7 @@ module.exports = (app, db) => {
     // logga ut
     app.delete('/api/login', async (request, response) => {
         request.session.destroy( () => {
-            response.json({loggedIn: false})
+            response.json({loggedin: false})
         } )
     })
 
