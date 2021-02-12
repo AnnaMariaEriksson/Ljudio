@@ -2,16 +2,16 @@
   <div class="search">
     <form>
       <label>Search:</label> <br>
-      <input type="text" placeholder="Search for something..." v-model="search">
+      <input type="text" placeholder="Search for something..." v-model="searchString">
       <button @click="searchYT">Submit</button>
     </form>
 
 
     <div id="yt-player"></div>
     <!-- insert if statement to only display this list if search is not empty -->
-    <ol>
-      <li><!--Insert search result here with playable buttons, add features to playlist etc --></li>
-    </ol>
+   <div v-for="(r1, i) in search" v-bind:key="i">
+     <p v-for="(r2, i) in r1" v-bind:key="i">{{r2}}</p>
+   </div>
 
   </div>
 </template>
@@ -27,16 +27,19 @@ name: "Search",
   computed: {
     search: {
       get() {
-        return this.searchString;
+        return this.$store.state.search;
       },
       set(value) {
-        this.searchString = value
+        this.$store.commit("setSearch", value)
+      },
+      data() {
+          return this.$store.state.search.data;
       }
-    }
+    },
 },
   methods: {
-  searchYT() {
-    console.log("something happened, finally!");
+  searchYT(e) {
+    e.preventDefault();
     this.$store.dispatch("search", {search: this.searchString});
   }
   }

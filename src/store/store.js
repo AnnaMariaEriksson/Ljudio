@@ -105,7 +105,7 @@ export default new Vuex.Store({
     async search({commit}, searchString) {
       let response = await fetch('/api/yt/search/' + searchString);
       let data = await response.json();
-      console.log(data);
+      console.log(data.content);
       commit("setSearch", data.content);
     },
 
@@ -134,6 +134,7 @@ export default new Vuex.Store({
         body: JSON.stringify(accountInfo)
       })
       let newUser = await response.json();
+      console.log(newUser)
       commit("setUser", newUser)
     },
 
