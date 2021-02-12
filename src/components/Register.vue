@@ -25,7 +25,7 @@ export default {
       password: "",
       firstname: "",
       lastname: "",
-      loggedIn: false
+      loggedin: false
     }
   },
   methods: {
@@ -38,7 +38,7 @@ export default {
         loggedIn: this.loggedIn
       }
       alert(`Welcome, ${user.username}. Your account has been created.`);
-      this.$store.commit("addUser", user);
+      this.$store.dispatch("addUser", user);
     }
   }
 }

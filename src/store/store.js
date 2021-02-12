@@ -14,7 +14,27 @@ export default new Vuex.Store({
       numberofsongs: 0,
 
     },
-    search: "",
+    search: {
+      song: "",
+      artist: {
+        name: "",
+        browseId: ""
+      },
+      album: {
+        name: "",
+        browseId: ""
+      },
+      duration: 0,
+      thumbnails: [
+        {
+          url: "",
+          width: 0,
+          height: 0
+        }
+      ],
+      params: "wAEB"
+
+    },
     songs: [],
     albums: [],
     users: {
@@ -102,9 +122,11 @@ export default new Vuex.Store({
       
     },
 
-    async getSearchResult({commit}, searchString) {
+    async search({commit}, searchString) {
       let response = await fetch('/api/yt/search/' + searchString);
       let data = await response.json();
+      console.log(data);
+      alert(data);
       commit("setSearch", data);
     },
 
@@ -125,6 +147,17 @@ export default new Vuex.Store({
       console.log(user);
       commit('setUser', user)
     },
+
+    async registerNewUser({commit}, accountInfo) {
+      let response = await fetch('/api/users', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(accountInfo)
+      })
+      let newUser = await response.json();
+      commit("setUser", newUser)
+    },
+
     async getUsers({commit}) {
       let response = await fetch("/api/users");
       let data = await response.json();
