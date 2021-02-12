@@ -1,12 +1,12 @@
 <template>
   <div class="login">
 
-    <form v-if="!user.loggedin" @submit.prevent="submit">
+    <form v-if="!user.loggedin" @submit="submit">
       <label>Username</label>
       <input type="text" placeholder="Username" v-model="username"> <br>
       <label>Password</label>
       <input type="password" placeholder="Password" v-model="password"> <br>
-      <button @submit="submit">Log in</button>
+      <button type="submit" @submit="submit">Log in</button>
     </form>
 
     <router-link v-if="user.loggedin" to="/register">Register></router-link>
@@ -27,35 +27,13 @@ name: "Login",
   }
   },
   computed: {
-  user:{
-    get(){
+  user(){
       return this.$store.state.user;
-    },
-    set(value) {
-      this.$store.commit('setUser', value);
-    },
-    firstname: {
-      get() {
-        return this.$store.state.user.firstname;
-      },
-      set(value) {
-        this.$store.commit("setUserfirstname", value)
-      }
-    },
-    lastname: {
-      get() {
-        return this.$store.state.user.lastname;
-      },
-      set(value) {
-        this.$store.commit("setUserlastname", value)
-      }
     }
-
-
-  }
   },
   methods: {
-    submit() {
+    submit(e) {
+      e.preventDefault();
       this.$store.dispatch('login', {username: this.username, password: this.password});
     }
   }

@@ -14,10 +14,10 @@ module.exports = (app, db) => {
 
     // authentication: perform login
     app.post('/api/login', async (request, response) => {
-        let user = await db.query('SELECT * FROM users WHERE username = ?', [request.body.userName])
+        let user = await db.query('SELECT * FROM users WHERE username = ?', [request.body.username])
         user = user[0]
 
-        if(user && user.email && await bcrypt.compare(request.body.password, user.password)){
+        if(user && user.username && await bcrypt.compare(request.body.password, user.password)){
             request.session.user = user
             user.loggedIn = true
             response.json({loggedIn: true})
@@ -31,10 +31,10 @@ module.exports = (app, db) => {
     app.get('/api/login', async (request, response) => {
         let user
         if(request.session.user){
-            user = await db.query('SELECT * FROM users WHERE email = ? AND password = ?', [request.session.user.email, request.session.user.password])
+            user = await db.query('SELECT * FROM users WHERE username = ? AND password = ?', [request.session.user.username, request.session.user.password])
             user = user[0]
         }
-        if(user && user.email){
+        if(user && user.username){
             user.loggedIn = true
             delete(user.password)
             response.json(user)
