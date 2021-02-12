@@ -9,7 +9,7 @@
       <button type="submit" @submit="submit">Log in</button>
     </form>
 
-    <router-link v-if="user.loggedin" to="/register">Register></router-link>
+    <router-link v-if="!user.loggedin" to="/register">Register></router-link>
 
     <div v-if="user.loggedin">
       <h3>Hello, {{user.firstname}} {{user.lastname}}!</h3>
