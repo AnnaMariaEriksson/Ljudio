@@ -82,7 +82,7 @@ export default new Vuex.Store({
     async getPlaylists({commit}) {
 
       try {
-        let response = await fetch('http://localhost:3000/api/playlists/');
+        let response = await fetch('/api/playlists/');
         let data = await response.json();
         commit("setPlaylistsData", data);
       } catch (e) {
@@ -92,7 +92,7 @@ export default new Vuex.Store({
 
     async addPlaylist({commit}) {
       try {
-        let response = await fetch('http://localhost:3000/api/playlists/');
+        let response = await fetch('/api/playlists/');
         let result = await response.json();
         commit('setPlaylistsData', result)
       }
@@ -102,40 +102,31 @@ export default new Vuex.Store({
       
     },
 
-    async searchYTVideo({dispatch}, search){
-      let response = await fetch('http://localhost:3000/api/yt/search/:searchstring',{
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(search)
-      })
-      await response.json();
-      console.log(search);
-      dispatch('getSearchResult')
-    },
-
-    async getSearchResult({commit}) {
-      let response = await fetch('http://localhost:3000/api/yt/search/:searchstring');
+    async getSearchResult({commit}, searchString) {
+      let response = await fetch('/api/yt/search/' + searchString);
       let data = await response.json();
       commit("setSearch", data);
     },
 
     async login({dispatch}, credentials){
-      let response = await fetch('http://localhost:3000/api/login',{
+      let response = await fetch('/api/login',{
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials)
       })
+
       await response.json()
       dispatch('checkAuth')
     },
     async checkAuth({commit}){
-      let response = await fetch('http://localhost:3000/api/login')
+      let response = await fetch('/api/login')
       let data = await response.json()
       let user = data
+      console.log(user);
       commit('setUser', user)
     },
     async getUsers({commit}) {
-      let response = await fetch("http://localhost:3000/api/users");
+      let response = await fetch("/api/users");
       let data = await response.json();
       commit("setUser", data)
     }

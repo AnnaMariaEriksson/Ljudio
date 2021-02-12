@@ -2,7 +2,7 @@
   <div class="search">
     <form>
       <label>Search:</label> <br>
-      <input class="searchinputfield" type="text" placeholder="Search for something..." v-model="searchfield">
+      <input class="searchinputfield" type="text" placeholder="Search for something..." v-model="search">
       <button @submit="searchYT()">Submit</button>
     </form>
 
@@ -20,11 +20,6 @@
 <script>
 export default {
 name: "Search",
-  data() {
-    return {
-      searchfield: ""
-    }
-  },
   computed: {
     search: {
       get() {
@@ -37,7 +32,7 @@ name: "Search",
 },
   methods: {
   searchYT() {
-    this.$store.dispatch("getSearchResult", {search: this.searchfield});
+    this.$store.dispatch("getSearchResult", {search: this.search});
     console.log(this.search);
     console.log("something happened, finally!");
   }
