@@ -35,10 +35,10 @@ export default {
         password: this.password,
         firstname: this.firstname,
         lastname: this.lastname,
-        loggedIn: this.loggedIn
+        loggedin: this.loggedin
       }
       alert(`Welcome, ${user.username}. Your account has been created.`);
-      this.$store.dispatch("addUser", user);
+      this.$store.dispatch("registerNewUser", user);
     }
   }
 }
@@ -48,6 +48,5 @@ export default {
   .register-account {
     width: 30%;
     margin: 0 auto;
-    background-color: burlywood;
   }
 </style>
