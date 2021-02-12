@@ -14,27 +14,7 @@ export default new Vuex.Store({
       numberofsongs: 0,
 
     },
-    search: {
-      song: "",
-      artist: {
-        name: "",
-        browseId: ""
-      },
-      album: {
-        name: "",
-        browseId: ""
-      },
-      duration: 0,
-      thumbnails: [
-        {
-          url: "",
-          width: 0,
-          height: 0
-        }
-      ],
-      params: "wAEB"
-
-    },
+    search: [],
     songs: [],
     albums: [],
     users: {
@@ -126,8 +106,7 @@ export default new Vuex.Store({
       let response = await fetch('/api/yt/search/' + searchString);
       let data = await response.json();
       console.log(data);
-      alert(data);
-      commit("setSearch", data);
+      commit("setSearch", data.content);
     },
 
     async login({dispatch}, credentials){

@@ -2,15 +2,14 @@
   <div class="search">
     <form>
       <label>Search:</label> <br>
-      <input class="searchinputfield" type="text" placeholder="Search for something..." v-model="search">
-      <button @submit="searchYT()">Submit</button>
+      <input type="text" placeholder="Search for something..." v-model="search">
+      <button @click="searchYT">Submit</button>
     </form>
 
-    <div id="yt-player"></div>
 
-<textarea></textarea>
+    <div id="yt-player"></div>
     <!-- insert if statement to only display this list if search is not empty -->
-    <ol v-if="$store.state.playlists.length > 0">
+    <ol>
       <li><!--Insert search result here with playable buttons, add features to playlist etc --></li>
     </ol>
 
@@ -20,21 +19,25 @@
 <script>
 export default {
 name: "Search",
+  data() {
+  return {
+    searchString: ""
+  }
+  },
   computed: {
     search: {
       get() {
-        return this.$store.state.search;
+        return this.searchString;
       },
       set(value) {
-        this.$store.commit("setSearch", value);
+        this.searchString = value
       }
     }
 },
   methods: {
   searchYT() {
-    this.$store.dispatch("getSearchResult", {search: this.search});
-    console.log(this.search);
     console.log("something happened, finally!");
+    this.$store.dispatch("search", {search: this.searchString});
   }
   }
 }
