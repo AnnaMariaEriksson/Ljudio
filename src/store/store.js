@@ -103,8 +103,12 @@ export default new Vuex.Store({
     },
 
     async search({commit}, searchString) {
-      let response = await fetch('/api/yt/search/' + searchString);
+      let response = await fetch('/api/yt/artists/' + searchString.search);
       let data = await response.json();
+
+      for (let result of data.content) {
+        console.log(result)
+      }
       console.log(data.content);
       commit("setSearch", data.content);
     },

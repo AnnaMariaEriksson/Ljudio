@@ -9,8 +9,8 @@
 
     <div id="yt-player"></div>
     <!-- insert if statement to only display this list if search is not empty -->
-   <div v-for="(r1, i) in search" v-bind:key="i">
-     <p v-for="(r2, i) in r1" v-bind:key="i">{{r2}}</p>
+   <div v-for="(r1, i) in search" v-bind:key="i"> {{r1.name}}
+     <!--<p v-for="(r2, i) in r1" v-bind:key="i">{{r2}}</p>-->
    </div>
 
   </div>
@@ -31,9 +31,6 @@ name: "Search",
       },
       set(value) {
         this.$store.commit("setSearch", value)
-      },
-      data() {
-          return this.$store.state.search.data;
       }
     },
 },
