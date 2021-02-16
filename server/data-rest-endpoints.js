@@ -51,6 +51,42 @@ module.exports = (app, db) => {
         } )
     })
 
+    // Get playlists
+    app.get('/api/playlists', async (request, response) => {
+        let data = await db.query('SELECT * FROM playlists')
+        response.json(data)
+    })
+
+    //Get single playlist
+    app.get("/api/playlists/:id", async (request, response) => {
+        let data = await db.query("SELECT * FROM ljudio1.playlists WHERE playlist_id = ?", [request.params.id])
+        data = data[0] // single row
+        response.json(data)
+    })
+
+    //Create playlist
+    app.post("/api/playlists", async (request, response) => {
+        // check if user exists before writing
+        /*if(!request.session.user){
+            response.status(403) // forbidden
+            response.json({error:'not logged in'})
+            return;
+        }*/
+        let result = await db.query("INSERT INTO ljudio1.playlists SET ?", request.body)
+        response.json(result)
+    })
+
+    //Add song to library
+    app.post("/api/songs", async (request, response) => {
+        // check if user exists before writing
+        /*if(!request.session.user){
+            response.status(403) // forbidden
+            response.json({error:'not logged in'})
+            return;
+        }*/
+        let result = await db.query("INSERT INTO ljudio1.songs SET ?", request.body)
+        response.json(result)
+    })
 
     // Example routes
 
