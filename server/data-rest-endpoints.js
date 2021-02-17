@@ -78,14 +78,20 @@ module.exports = (app, db) => {
 
     //Add song to library
     app.post("/api/songs", async (request, response) => {
-        // check if user exists before writing
-        /*if(!request.session.user){
-            response.status(403) // forbidden
-            response.json({error:'not logged in'})
-            return;
-        }*/
-        let result = await db.query("INSERT INTO ljudio1.songs SET ?", request.body)
-        response.json(result)
+        try {
+            // check if user exists before writing
+            /*if(!request.session.user){
+                response.status(403) // forbidden
+                response.json({error:'not logged in'})
+                return;
+            }*/
+            let result = await db.query("INSERT INTO ljudio1.songs SET ?", request.body)
+            response.json(result)
+        }
+        catch (e) {
+
+        }
+        
     })
 
     // Example routes

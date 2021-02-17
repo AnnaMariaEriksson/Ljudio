@@ -15,9 +15,9 @@
       <h2 class="nameOfSong">{{r1.name}}</h2>
       <h3 class="nameOfArtist">{{r1.artist.name}}</h3>
       <div class="addToPlaylist">
-        <p @click="addNewSong(r1.name, playlist)">+ Add to playlist</p>
+        <p @click="addNewSong(r1, playlist)">+ Add to playlist</p>
         <select v-model="playlist">
-          <option v-for="p in playlists" v-bind:key="p.id">{{p.name}}</option>
+          <option v-for="p in playlists" v-bind:key="p.id" :value="p">{{p.name}}</option>
         </select>
       </div>
 
@@ -70,9 +70,22 @@ export default {
     pause() {
       window.player.pauseVideo();
     },
-    addNewSong(object) {
-      //Need selected object, not the first one in the list
-      console.log(`You've added song ${object} to ${this.playlist}`)
+    addNewSong(object, playlist) {
+      let song = {
+        nameofsong: object.name,
+        artist: object.artist.name,
+        videoid: object.videoId,
+        playlist_id: playlist.playlist_id
+      }
+      console.log(playlist);
+      console.log(`name of song: ${song.nameofsong} |
+                    artist: ${song.artist} |
+                    videoid: ${song.videoId} |
+                    playlistid: ${song.playlistId}`);
+
+      console.log(`You've added song ${object.name} to ${playlist.name}`);
+      this.$store.dispatch("addSongToPlayList", song)
+
     }
   }
 }
