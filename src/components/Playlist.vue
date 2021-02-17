@@ -2,11 +2,15 @@
   <div>
     <h2 v-if="playlists.length === 0">No playlists found :(</h2>
     <h2 v-if="playlists.length > 0">My Playlists</h2>
-    <div>
-      <ol>
-        <li v-for="(p, i) in playlists" v-bind:key="i">{{p.name}} | Number of songs:  {{p.numberofsongs}}</li>
-      </ol>
+    <div v-for="(p, i) in playlists" v-bind:key="i">
+
+      <!--<router-link :to=" `/playlists/${p.id}` ">{{p.name}}</router-link>-->
+      <!--<router-link :to="/playlists/ + p.id">{{p.name}}</router-link>-->
+      <router-link :to="{ name: 'Playlist', params: { id: p.id}}">{{p.name}}</router-link>
+
     </div>
+
+    <router-link to="/playlists/1">Test playlist</router-link>
 
   </div>
 </template>
