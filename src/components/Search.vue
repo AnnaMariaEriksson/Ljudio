@@ -14,15 +14,14 @@
       <p class="pause" @click="pause()">Pause</p>
       <h2 class="nameOfSong">{{r1.name}}</h2>
       <h3 class="nameOfArtist">{{r1.artist.name}}</h3>
-        <h4 class="addToPlaylist">+ Add to playlist</h4>
-      <div class="playlistDropDown">
-        <form>
-          <select >
-            <option v-for="playlist in playlists" v-bind:key="playlist.id">{{playlist.name}}</option>
-          </select>
-        </form>
-
+      <div class="addToPlaylist">
+        <p @click="addNewSong(r1.name, playlist)">+ Add to playlist</p>
+        <select v-model="playlist">
+          <option v-for="p in playlists" v-bind:key="p.id">{{p.name}}</option>
+        </select>
       </div>
+
+
     </div>
 
   </div>
@@ -35,6 +34,7 @@ export default {
   data() {
     return {
       searchString: "",
+      playlist: ""
     }
   },
   computed: {
@@ -52,7 +52,7 @@ export default {
       },
       set(value) {
         this.$store.commit("setPlaylistsData", value)
-      }
+      },
     }
   },
   created() {
@@ -69,6 +69,10 @@ export default {
     },
     pause() {
       window.player.pauseVideo();
+    },
+    addNewSong(object) {
+      //Need selected object, not the first one in the list
+      console.log(`You've added song ${object} to ${this.playlist}`)
     }
   }
 }
@@ -103,10 +107,10 @@ button:hover {
 
 .searchResult {
   margin: 30px auto auto auto;
-  width: 50%;
+  width: 70%;
 
   display: grid;
-  grid-template-columns: repeat(2, 50%);
+  grid-template-columns: repeat(3, 33%);
   grid-template-rows: repeat(3, 33%);
   gap: 1%;
   padding: 1%;
@@ -133,7 +137,17 @@ button:hover {
 
 .addToPlaylist {
   font-size: x-large;
-  grid-row: 3;
-  grid-column: 1 / span 3;
+  grid-row: 1;
+  grid-column: 3;
+}
+
+select {
+  border: none;
+  font-family: 'Special Elite', monospace;
+  position: relative;
+}
+
+option {
+  font-family: 'Special Elite', monospace;
 }
 </style>

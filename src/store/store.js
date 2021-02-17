@@ -105,11 +105,6 @@ export default new Vuex.Store({
     async search({commit}, searchString) {
       let response = await fetch('/api/yt/songs/' + searchString.search);
       let data = await response.json();
-
-      for (let result of data.content) {
-        console.log(result)
-      }
-      console.log(data.content);
       commit("setSearch", data.content);
     },
 
@@ -140,6 +135,17 @@ export default new Vuex.Store({
       let newUser = await response.json();
       console.log(newUser)
       commit("setUser", newUser)
+    },
+
+    async addSongToPlayList({commit}, songToAdd) {
+      let response = await fetch('api/songs', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json'},
+        body:JSON.stringify(songToAdd)
+      })
+      let newSong = await response.json();
+      console.log(newSong)
+      commit("setSong", newSong)
     },
 
     async getUsers({commit}) {
