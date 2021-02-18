@@ -3,7 +3,7 @@
     <div>
       <h2 v-if="playlists.length === 0">No playlists found :(</h2>
       <h2 v-if="playlists.length > 0">My Playlists</h2>
-      <div v-for="(p, i) in playlists" v-bind:key="i">
+      <div v-for="(p, i) in playlists" v-bind:key="i" @click="loadSinglePlaylist(p)">
 
         <router-link :to="'/playlists/' + p.playlist_id">{{p.name}}</router-link>
       </div>
@@ -14,11 +14,8 @@
 </template>
 
 <script>
-import SinglePlaylist from "@/components/SinglePlaylist";
 export default {
 name: "Playlist",
-  components: {SinglePlaylist},
-  props: ["playlist"],
   computed: {
     playlists() {
       let p = [];
@@ -32,6 +29,12 @@ name: "Playlist",
   },
   created() {
   this.$store.dispatch("getPlaylists");
+  },
+  methods: {
+    loadSinglePlaylist(object) {
+      console.log(object);
+      this.$store.dispatch("getSinglePlaylist", {playlist_id: object.playlist_id})
+    }
   }
 }
 </script>

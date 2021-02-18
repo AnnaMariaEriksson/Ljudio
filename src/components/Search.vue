@@ -77,12 +77,6 @@ export default {
         videoid: object.videoId,
         playlist_id: playlist.playlist_id
       }
-      console.log(playlist);
-      console.log(`name of song: ${song.nameofsong} |
-                    artist: ${song.artist} |
-                    videoid: ${song.videoId} |
-                    playlistid: ${song.playlistId}`);
-
       console.log(`You've added song ${object.name} to ${playlist.name}`);
       this.$store.dispatch("addSongToPlayList", song)
 
