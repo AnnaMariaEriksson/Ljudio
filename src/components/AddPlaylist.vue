@@ -4,7 +4,7 @@
 
   <form @submit.prevent="addNewPlaylist">
     <label>Name of playlist</label>
-    <input type="text" v-model="playlists.name">
+    <input type="text" v-model="name">
     <button @submit="addNewPlaylist()">Create</button>
   </form>
   <Playlist/>
@@ -15,6 +15,11 @@
 import Playlist from "@/components/Playlist";
 export default {
 name: "AddPlaylist",
+  data() {
+  return {
+    name: ""
+  }
+  },
   components: {Playlist},
   computed: {
     playlists: {
@@ -28,8 +33,12 @@ name: "AddPlaylist",
   },
   methods: {
   addNewPlaylist() {
-    this.$store.commit("addPlaylist");
-    alert(`You've added a playlist '${this.playlist.name}'`)
+    let pl = {
+      name: this.name
+    }
+    alert(`You've added a playlist called '${this.name}'`)
+    this.$store.dispatch("addNewPlaylist", pl);
+
   }
   }
 }

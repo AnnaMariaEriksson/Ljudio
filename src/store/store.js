@@ -30,15 +30,6 @@ export default new Vuex.Store({
   },
   //mutations = methods
   mutations: {
-    addPlaylist(state, playlistToAdd) {
-      state.playlists.push(playlistToAdd);
-    },
-    addSongToPlaylist(state, songToAdd) {
-      state.playlists.unshift(songToAdd);
-    },
-    addUser(state, userToAdd) {
-      state.users.push(userToAdd);
-    },
     setSong(state, value) {
       state.songs = value;
     },
@@ -78,7 +69,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-
     async getPlaylists({commit}) {
 
       try {
@@ -90,16 +80,15 @@ export default new Vuex.Store({
       }
     },
 
-    async addPlaylist({commit}) {
-      try {
-        let response = await fetch('/api/playlists/');
-        let result = await response.json();
-        commit('setPlaylistsData', result)
-      }
-      catch (e) {
-        e.message("Nått gick fel igen");
-      }
-      
+    async addNewPlaylist({commit}, pl) {
+      let response = await fetch('/api/playlists', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(pl)
+      })
+      let newPlaylist = await response.json();
+      console.log(newPlaylist)
+      commit("setPlaylistsData", newPlaylist)
     },
 
     async search({commit}, searchString) {
