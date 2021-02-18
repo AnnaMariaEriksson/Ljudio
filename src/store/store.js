@@ -10,9 +10,7 @@ export default new Vuex.Store({
       data: []
     },
     playlist: {
-      name: "Moo, this is the playlist from store",
-      numberofsongs: 0,
-
+      name: "",
     },
     search: [],
     songs: [],
@@ -41,6 +39,9 @@ export default new Vuex.Store({
     },
     setPlaylistName(state, value) {
       state.playlist.name = value
+    },
+    setPlaylist(state, value) {
+      state.playlist = value
     },
     setPlaylistnumberofsongs(state, value) {
       state.playlist.numberofsongs = value
@@ -78,6 +79,13 @@ export default new Vuex.Store({
       } catch (e) {
         e.message('Nått gick fel.');
       }
+    },
+
+    async getSinglePlaylist({commit}, id) {
+
+        let response = await fetch('/api/playlists/' + id);
+        let data = await response.json()
+        commit("setPlaylist", data)
     },
 
     async addNewPlaylist({commit}, pl) {
@@ -143,5 +151,11 @@ export default new Vuex.Store({
       commit("setUser", data)
     }
   },
+  getters:
+      {
+        getPlaylistId: (state) => (id) => {
+          return state.playlist.find(playlist => playlist.playlist_id === id)
+        }
+      },
   modules: {}
 });

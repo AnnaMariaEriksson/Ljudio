@@ -21,17 +21,16 @@ const routes = [
     component: Search
   },
   {
-    path: "/playlists/",
+    path: "/playlists",
     name: "Playlist",
     component: Playlist,
     params: true,
-    children: [
-      {
-        path: ":id",
-        name:"SinglePlaylist",
-        component: SinglePlaylist
-      }
-    ]
+  },
+
+  {
+    path:"/playlists/:id",
+    name: "SinglePlaylist",
+    component: SinglePlaylist
   },
 
   {
