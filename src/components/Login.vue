@@ -61,6 +61,14 @@ a:hover {
 
 }
 
+@media screen and (max-width: 1000px){
+  .login {
+    margin: 0 auto;
+    width: 40vw;
+  }
+
+}
+
 .login form>input {
   margin: 1% 1% 1% 5%;
   height: 20px;

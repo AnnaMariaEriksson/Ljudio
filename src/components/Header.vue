@@ -15,7 +15,7 @@
         </div>
       </div>
       <Login/>
-        <h1 class="shake">Ljudio</h1>
+        <h1 class="shake ljudioTitle">Ljudio</h1>
   </div>
 
 </template>
@@ -36,6 +36,7 @@ name: "Header",
   gap: 15px;
   grid-template-rows: repeat(2, auto);
   grid-template-columns: repeat(4, 25%);
+  width: 100%;
 }
 
 #nav {
@@ -78,12 +79,25 @@ name: "Header",
 #nav a.router-link-exact-active {
   color: #ff00ff;
 }
-h1 {
+.ljudioTitle {
   font-size: 120px;
   font-weight: lighter;
   grid-column: 2 /span 2;
   text-align: center;
   grid-row: 2;
+}
+
+@media screen and (max-width: 1000px){
+  .mainHeader {
+    display: inline-block;
+    margin: 0 auto;
+  }
+  .ljudioTitle {
+    font-size: 15vw;
+    text-align: center;
+    margin: 0 auto;
+  }
+
 }
 
 </style>

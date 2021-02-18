@@ -61,4 +61,14 @@ export default {
   100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+@media screen and (max-width: 800px){
+  .home {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    justify-items: center;
+
+  }
+}
+
 </style>
