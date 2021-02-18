@@ -10,7 +10,7 @@ export default new Vuex.Store({
       data: []
     },
     playlist: {
-      name: "",
+      name: "Moo, this is the playlist from store",
       numberofsongs: 0,
 
     },

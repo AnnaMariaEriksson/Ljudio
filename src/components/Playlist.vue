@@ -4,13 +4,14 @@
     <h2 v-if="playlists.length > 0">My Playlists</h2>
     <div v-for="(p, i) in playlists" v-bind:key="i">
 
-      <!--<router-link :to=" `/playlists/${p.id}` ">{{p.name}}</router-link>-->
-      <!--<router-link :to="/playlists/ + p.id">{{p.name}}</router-link>-->
-      <router-link :to="{ name: 'Playlist', params: { id: p.id}}">{{p.name}}</router-link>
-
+      <router-link :to="'/playlists/' + p.playlist_id">{{p.name}}</router-link>
     </div>
 
     <router-link to="/playlists/1">Test playlist</router-link>
+
+    <SinglePlaylist/>
+
+
 
   </div>
 </template>
@@ -18,16 +19,17 @@
 <script>
 export default {
 name: "Playlist",
+  props: ["playlist"],
   computed: {
-    playlists: {
-      get() {
-        return this.$store.state.playlists.data;
-      },
-      set(value) {
-        this.$store.commit("setPlaylistsData", value);
+    playlists() {
+      let p = [];
+      for(let playlist of this.$store.state.playlists.data) {
+        if (playlist.id === this.$route.params.id) {
+          p.push(playlist)
+        }
       }
-    },
-
+      return p;
+    }
   },
   created() {
   this.$store.dispatch("getPlaylists");

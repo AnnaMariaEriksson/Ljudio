@@ -5,6 +5,7 @@ import Search from "@/components/Search";
 import Playlist from "@/components/Playlist";
 import Register from "@/components/Register";
 import AddPlaylist from "@/components/AddPlaylist";
+import SinglePlaylist from "@/components/SinglePlaylist";
 
 Vue.use(VueRouter);
 
@@ -20,9 +21,17 @@ const routes = [
     component: Search
   },
   {
-    path: "/playlists",
+    path: "/playlists/",
     name: "Playlist",
-    component: Playlist
+    component: Playlist,
+    params: true,
+    children: [
+      {
+        path: ":id",
+        name:"SinglePlaylist",
+        component: SinglePlaylist
+      }
+    ]
   },
 
   {
