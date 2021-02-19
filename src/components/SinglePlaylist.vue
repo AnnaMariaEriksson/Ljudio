@@ -1,7 +1,8 @@
 <template>
 <div>
   <div>
-    <h2>{{playlist.name}} {{playlist.playlist_id}}</h2>
+    <h2>{{playlist.name}}</h2>
+    <Song/>
 
   </div>
 
@@ -10,8 +11,10 @@
 
 <script>
 
+import Song from "@/components/Song";
 export default {
 name: "SinglePlaylist",
+  components: {Song},
   computed: {
     playlist() {
       return this.$store.state.playlist;

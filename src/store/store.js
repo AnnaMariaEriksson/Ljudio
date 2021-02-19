@@ -81,6 +81,12 @@ export default new Vuex.Store({
             }
         },
 
+        async getSongs({commit}) {
+            let response = await fetch('/api/songs');
+            let data = await response.json();
+            commit("setSong", data)
+        },
+
         async getSinglePlaylist({commit}, playlist_id) {
             try {
                 let response = await fetch('/api/playlists/' + playlist_id);

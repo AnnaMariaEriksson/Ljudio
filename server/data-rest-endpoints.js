@@ -57,6 +57,12 @@ module.exports = (app, db) => {
         response.json(data)
     })
 
+    // Get songs
+    app.get('/api/songs', async (request, response) => {
+        let data = await db.query('SELECT * FROM songs')
+        response.json(data)
+    })
+
     //Get single playlist
     app.get("/api/playlists/:id", async (request, response) => {
         let data = await db.query("SELECT * FROM ljudio1.playlists WHERE playlist_id = ?", [request.params.id])

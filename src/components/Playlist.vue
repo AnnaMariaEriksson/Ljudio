@@ -33,7 +33,8 @@ name: "Playlist",
   methods: {
     loadSinglePlaylist(object) {
       console.log(object);
-      this.$store.dispatch("getSinglePlaylist", {playlist_id: object.playlist_id})
+      //Hardcoded payload value
+      this.$store.dispatch("getSinglePlaylist", 1)
     }
   }
 }

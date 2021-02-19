@@ -20,8 +20,6 @@
           <option v-for="p in playlists" v-bind:key="p.id" :value="p">{{p.name}}</option>
         </select>
       </div>
-
-
     </div>
 
   </div>
