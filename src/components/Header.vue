@@ -37,6 +37,8 @@ name: "Header",
   grid-template-rows: repeat(2, auto);
   grid-template-columns: repeat(4, 25%);
   width: 100%;
+  background-image: url("../assets/Top.png");
+  background-repeat: no-repeat;
 }
 
 #nav {
@@ -85,6 +87,10 @@ name: "Header",
   grid-column: 2 /span 2;
   text-align: center;
   grid-row: 2;
+  background-image: url("../assets/Border bottom.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
 }
 
 @media screen and (max-width: 1000px){

@@ -1,6 +1,6 @@
 <template>
-<div>
-  <div>
+<div class="single">
+  <div class="songInfo">
     <h2>{{playlist.name}}</h2>
     <Song/>
 
@@ -30,5 +30,16 @@ name: "SinglePlaylist",
 </script>
 
 <style scoped>
+.single {
+  width: 30vw;
+  margin: auto;
+  text-align: center;
+}
 
+.songInfo {
+  width: 40vw;
+  background-image: url("../assets/Pink bg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 </style>
