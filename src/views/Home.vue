@@ -34,6 +34,10 @@ export default {
 
 .MenuItem {
   margin-top: 20%;
+  background-image: url("../assets/Pink bg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .MenuItem a {

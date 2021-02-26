@@ -2,6 +2,7 @@
 <div>
   <div v-for="(song, i) in songs" v-bind:key="i">
     <h3>{{song.nameofsong}}</h3>
+    <h2>{{song.artist}}</h2>
     <div id="yt-player"></div>
     <p class="play" @click="play(song.videoid)">Play</p>
     <p class="pause" @click="pause()">Pause</p>
