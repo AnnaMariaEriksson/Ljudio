@@ -51,6 +51,9 @@ export default {
       set(value) {
         this.$store.commit("setPlaylistsData", value)
       },
+    },
+    user() {
+      return this.$store.state.user;
     }
   },
   created() {

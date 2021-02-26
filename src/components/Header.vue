@@ -10,7 +10,7 @@
         <div class="shake">
           <router-link to="/about">About</router-link> |
         </div>
-        <div class="shake">
+        <div class="shake" v-if="user.loggedin">
           <router-link to="/playlists">My Playlists</router-link> |
         </div>
       </div>
@@ -24,7 +24,12 @@
 import Login from "@/components/Login";
 export default {
 name: "Header",
-  components: {Login}
+  components: {Login},
+  computed: {
+    user() {
+      return this.$store.state.user
+    }
+  }
 }
 </script>
 
@@ -50,7 +55,7 @@ name: "Header",
 }
 
 #nav a {
-  color: #000000;
+  color: #ffffff;
   font-size: 32px;
   text-align: center;
 }

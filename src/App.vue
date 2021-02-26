@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <Header/>
-      <router-view />
+      <router-view/>
   </div>
 </template>
 
@@ -17,6 +17,14 @@
 import Header from "@/components/Header";
 
 export default {
-  components: {Header}
+  components: {Header},
+  mounted() {
+this.$store.dispatch("checkAuth")
+  },
+  computed: {
+    user() {
+      return this.$store.state.user
+    }
+  }
 }
 </script>

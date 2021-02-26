@@ -9,7 +9,7 @@
       <button type="submit" @submit="submit">Log in</button>
     </form>
 
-    <router-link v-if="!user.loggedin" to="/register">Register></router-link>
+    <router-link class="register" v-if="!user.loggedin" to="/register">Register></router-link>
 
     <div v-if="user.loggedin">
       <h3>Hello, {{user.firstname}} {{user.lastname}}!</h3>
@@ -42,8 +42,12 @@ name: "Login",
 
 <style scoped>
 
+label {
+  color: white;
+}
+
 a {
-  color: black;
+  color: white;
   text-decoration: none;
   font-weight: bold;
 }
@@ -61,14 +65,6 @@ a:hover {
 
 }
 
-@media screen and (max-width: 1000px){
-  .login {
-    margin: 0 auto;
-    width: 40vw;
-  }
-
-}
-
 .login form>input {
   margin: 1% 1% 1% 5%;
   height: 20px;
@@ -81,8 +77,18 @@ button {
   font-family: 'Special Elite';
   border: none;
   background: none;
+  color: white;
+  font-size: large;
 }
 button:hover {
   color: #ff00ff;
+}
+
+@media screen and (max-width: 1000px){
+  .login {
+    margin: 0 auto;
+    width: 40vw;
+  }
+
 }
 </style>
