@@ -1,5 +1,6 @@
 let express = require('express')
 const app = express()
+const port = 3000
 
 // läser in modulen body-parser
 const bodyParser = require('body-parser')
@@ -23,10 +24,11 @@ app.use( session( {
 
 const mysql = require('mysql');
 const db = mysql.createConnection({
-    host: 'den1.mysql4.gear.host',
-    user: 'ljudio1',
-    password: 'Qw4QD52K_r2-',
-    database: 'ljudio1'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DATABASE,
+    port: 3306
 });
 
 // vi gör om mysql-metoderna connect och query till promise-metoder så att vi kan använda async/await för att vänta på databasen
@@ -38,7 +40,13 @@ require('./yt-rest-endpoints.js')(app, db)
 require('./data-rest-endpoints')(app, db)
 
 // start the server
-app.listen(3000, async () => {
-    await db.connect()
-    console.log('server running on port 3000')
+app.listen(port, async () => {
+    try {
+        await db.connect()
+        console.log('server running on port ' + port)
+    }
+    catch (e) {
+        console.log(e)
+    }
+
 })

@@ -1,5 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/ybzhfhcb/repositories/ljudio
-    - /bin/cp -R * $DEPLOYPATH
