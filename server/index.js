@@ -1,6 +1,9 @@
 let express = require('express')
 const app = express()
+const dotenv = require('dotenv')
 const port = 3000
+
+dotenv.config()
 
 // läser in modulen body-parser
 const bodyParser = require('body-parser')
