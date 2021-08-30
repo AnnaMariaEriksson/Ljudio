@@ -73,11 +73,11 @@ module.exports = (app, db) => {
     //Create playlist
     app.post("/api/playlists", async (request, response) => {
         // check if user exists before writing
-        /*if(!request.session.user){
+        if(!request.session.user){
             response.status(403) // forbidden
             response.json({error:'not logged in'})
             return;
-        }*/
+        }
         let result = await db.query("INSERT INTO ljudio1.playlists SET ?", request.body)
         response.json(result)
     })
@@ -86,11 +86,11 @@ module.exports = (app, db) => {
     app.post("/api/songs", async (request, response) => {
         try {
             // check if user exists before writing
-            /*if(!request.session.user){
+            if(!request.session.user){
                 response.status(403) // forbidden
                 response.json({error:'not logged in'})
                 return;
-            }*/
+            }
             let result = await db.query("INSERT INTO ljudio1.songs SET ?", request.body)
             response.json(result)
         }
