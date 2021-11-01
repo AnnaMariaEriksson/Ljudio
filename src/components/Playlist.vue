@@ -33,8 +33,9 @@ name: "Playlist",
   methods: {
     loadSinglePlaylist(object) {
       console.log(object);
-      //Hardcoded payload value
-      this.$store.dispatch("getSinglePlaylist", 1)
+      //We're sending the playlist id, but we get the songs from playlist with id 1.
+      //Issue has probably something to do with db table relations not being properly setup.
+      this.$store.dispatch("getSinglePlaylist", object.playlist_id)
     }
   }
 }

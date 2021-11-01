@@ -73,23 +73,23 @@ export default new Vuex.Store({
         async getPlaylists({commit}) {
 
             try {
-                let response = await fetch('/api/playlists/');
+                let response = await fetch(process.env.VUE_APP_API_URL+'/api/playlists/');
                 let data = await response.json();
                 commit("setPlaylistsData", data);
             } catch (e) {
-                e.message('Nått gick fel.');
+                e.message('Something went wrong.');
             }
         },
 
         async getSongs({commit}) {
-            let response = await fetch('/api/songs');
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/songs');
             let data = await response.json();
             commit("setSong", data)
         },
 
         async getSinglePlaylist({commit}, playlist_id) {
             try {
-                let response = await fetch('/api/playlists/' + playlist_id);
+                let response = await fetch(process.env.VUE_APP_API_URL+'/api/playlists/' + playlist_id);
                 let data = await response.json();
                 commit("setPlaylist", data);
             } catch (e) {
@@ -98,7 +98,7 @@ export default new Vuex.Store({
         },
 
         async addNewPlaylist({commit}, pl) {
-            let response = await fetch('/api/playlists', {
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/playlists', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(pl)
@@ -109,13 +109,13 @@ export default new Vuex.Store({
         },
 
         async search({commit}, searchString) {
-            let response = await fetch('/api/yt/songs/' + searchString.search);
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/yt/songs/' + searchString.search);
             let data = await response.json();
             commit("setSearch", data.content);
         },
 
         async login({dispatch}, credentials) {
-            let response = await fetch('/api/login', {
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/login', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(credentials)
@@ -125,7 +125,7 @@ export default new Vuex.Store({
             dispatch('checkAuth')
         },
         async checkAuth({commit}) {
-            let response = await fetch('/api/login')
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/login')
             let data = await response.json()
             let user = data
             console.log(user);
@@ -133,7 +133,7 @@ export default new Vuex.Store({
         },
 
         async registerNewUser({commit}, accountInfo) {
-            let response = await fetch('/api/users', {
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/users', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(accountInfo)
@@ -144,7 +144,7 @@ export default new Vuex.Store({
         },
 
         async addSongToPlayList({commit}, songToAdd) {
-            let response = await fetch('api/songs', {
+            let response = await fetch(process.env.VUE_APP_API_URL+'api/songs', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(songToAdd)
@@ -155,7 +155,7 @@ export default new Vuex.Store({
         },
 
         async getUsers({commit}) {
-            let response = await fetch("/api/users");
+            let response = await fetch(process.env.VUE_APP_API_URL+"/api/users");
             let data = await response.json();
             commit("setUser", data)
         }

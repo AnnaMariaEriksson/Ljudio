@@ -17,6 +17,7 @@ module.exports = (app, db) => {
         let user = await db.query('SELECT * FROM users WHERE username = ?', [request.body.username])
         user = user[0]
 
+        //Make sure user is logged in to perform searches and add playlists etc.
         if(user && user.username && await bcrypt.compare(request.body.password, user.password)){
             request.session.user = user
             user.loggedin = true
