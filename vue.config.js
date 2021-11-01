@@ -1,8 +1,8 @@
 module.exports = {
   devServer: {
     proxy: {
-      '^/api': {
-        target: 'https://ljudio-ame.netlify.app',
+      '/': {
+        target: 'https://ljudio-backend-ame.herokuapp.com',
         ws: true,
         changeOrigin: true
       }

@@ -115,7 +115,7 @@ export default new Vuex.Store({
         },
 
         async login({dispatch}, credentials) {
-            let response = await fetch(process.env.VUE_APP_API_URL+'/api/login', {
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/login/', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(credentials)
@@ -125,7 +125,7 @@ export default new Vuex.Store({
             dispatch('checkAuth')
         },
         async checkAuth({commit}) {
-            let response = await fetch(process.env.VUE_APP_API_URL+'/api/login')
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/login/')
             let data = await response.json()
             let user = data
             console.log(user);
@@ -133,7 +133,7 @@ export default new Vuex.Store({
         },
 
         async registerNewUser({commit}, accountInfo) {
-            let response = await fetch(process.env.VUE_APP_API_URL+'/api/users', {
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/users/', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(accountInfo)
@@ -155,7 +155,7 @@ export default new Vuex.Store({
         },
 
         async getUsers({commit}) {
-            let response = await fetch(process.env.VUE_APP_API_URL+"/api/users");
+            let response = await fetch(process.env.VUE_APP_API_URL+"/api/users/");
             let data = await response.json();
             commit("setUser", data)
         }
