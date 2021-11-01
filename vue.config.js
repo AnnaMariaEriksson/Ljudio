@@ -1,5 +1,11 @@
 module.exports = {
   devServer: {
-    proxy: 'http://localhost:3000'
+    proxy: {
+      '^/api': {
+        target: 'https://ljudio-ame.netlify.app',
+        ws: true,
+        changeOrigin: true
+      }
+    }
   }
 }
