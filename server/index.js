@@ -1,6 +1,9 @@
 let express = require('express')
 const app = express()
 const dotenv = require('dotenv')
+const serveStatic = require('serve-static')
+const path = require('path')
+app.use(serveStatic(path.join(__dirname, 'dist')));
 const port = process.env.PORT || 3000
 
 dotenv.config()
@@ -36,6 +39,7 @@ const db = mysql.createConnection({
 
 // vi gör om mysql-metoderna connect och query till promise-metoder så att vi kan använda async/await för att vänta på databasen
 const util = require('util')
+const { static } = require("express");
 db.connect = util.promisify(db.connect)
 db.query = util.promisify(db.query)
 
