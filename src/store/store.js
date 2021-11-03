@@ -82,14 +82,14 @@ export default new Vuex.Store({
         },
 
         async getSongs({commit}) {
-            let response = await fetch(process.env.VUE_APP_API_URL+'/api/songs');
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/songs', {mode: "cors"});
             let data = await response.json();
             commit("setSong", data)
         },
 
         async getSinglePlaylist({commit}, playlist_id) {
             try {
-                let response = await fetch(process.env.VUE_APP_API_URL+'/api/playlists/' + playlist_id);
+                let response = await fetch(process.env.VUE_APP_API_URL+'/api/playlists/' + playlist_id, {mode: "cors"});
                 let data = await response.json();
                 commit("setPlaylist", data);
             } catch (e) {
@@ -101,7 +101,8 @@ export default new Vuex.Store({
             let response = await fetch(process.env.VUE_APP_API_URL+'/api/playlists', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(pl)
+                body: JSON.stringify(pl),
+                mode: "cors"
             })
             let newPlaylist = await response.json();
             console.log(newPlaylist)
@@ -109,7 +110,7 @@ export default new Vuex.Store({
         },
 
         async search({commit}, searchString) {
-            let response = await fetch(process.env.VUE_APP_API_URL+'/api/yt/songs/' + searchString.search);
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/yt/songs/' + searchString.search, {mode: "cors"});
             let data = await response.json();
             commit("setSearch", data.content);
         },
@@ -118,14 +119,15 @@ export default new Vuex.Store({
             let response = await fetch(process.env.VUE_APP_API_URL+'/api/login/', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(credentials)
+                body: JSON.stringify(credentials),
+                mode: "cors"
             })
 
             await response.json()
             dispatch('checkAuth')
         },
         async checkAuth({commit}) {
-            let response = await fetch(process.env.VUE_APP_API_URL+'/api/login/')
+            let response = await fetch(process.env.VUE_APP_API_URL+'/api/login/', {mode: "cors"})
             let data = await response.json()
             let user = data
             console.log(user);
@@ -136,7 +138,8 @@ export default new Vuex.Store({
             let response = await fetch(process.env.VUE_APP_API_URL+'/api/users/', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(accountInfo)
+                body: JSON.stringify(accountInfo),
+                mode: "cors"
             })
             let newUser = await response.json();
             console.log(newUser)
@@ -147,7 +150,8 @@ export default new Vuex.Store({
             let response = await fetch(process.env.VUE_APP_API_URL+'api/songs', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(songToAdd)
+                body: JSON.stringify(songToAdd),
+                mode: "cors"
             })
             let newSong = await response.json();
             console.log(newSong)
@@ -155,7 +159,7 @@ export default new Vuex.Store({
         },
 
         async getUsers({commit}) {
-            let response = await fetch(process.env.VUE_APP_API_URL+"/api/users/");
+            let response = await fetch(process.env.VUE_APP_API_URL+"/api/users/", {mode: "cors"});
             let data = await response.json();
             commit("setUser", data)
         }
