@@ -73,7 +73,7 @@ export default new Vuex.Store({
         async getPlaylists({commit}) {
 
             try {
-                let response = await fetch(process.env.VUE_APP_API_URL+'/api/playlists/');
+                let response = await fetch(process.env.VUE_APP_API_URL+'/api/playlists/', {mode: "cors"});
                 let data = await response.json();
                 commit("setPlaylistsData", data);
             } catch (e) {

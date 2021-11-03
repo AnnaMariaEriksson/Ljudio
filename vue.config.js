@@ -1,5 +1,5 @@
 module.exports = {
-  devServer: {
+  /*devServer: {
     proxy: {
       '/': {
         target: 'https://ljudio-backend-ame.herokuapp.com',
@@ -7,5 +7,5 @@ module.exports = {
         changeOrigin: true
       }
     }
-  }
+  }*/
 }
